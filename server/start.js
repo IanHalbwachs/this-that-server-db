@@ -1,12 +1,10 @@
-'use strict'
+'use strict'; // eslint-disable-line semi
 
-const path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser')
 const {resolve} = require('path')
 const passport = require('passport')
 const PrettyError = require('pretty-error')
-const finalHandler = require('finalhandler')
 // PrettyError docs: https://www.npmjs.com/package/pretty-error
 
 // Bones has a symlink from node_modules/APP to the root of the app.
@@ -24,7 +22,7 @@ if (!pkg.isProduction && !pkg.isTesting) {
 }
 
 // Pretty error prints errors all pretty.
-const prettyError = new PrettyError();
+const prettyError = new PrettyError()
 
 // Skip events.js and http.js and similar core node files.
 prettyError.skipNodeFiles()
@@ -35,9 +33,9 @@ prettyError.skipPackage('express')
 module.exports = app
   // Session middleware - compared to express-session (which is what's used in the Auther workshop), cookie-session stores sessions in a cookie, rather than some other type of session store.
   // Cookie-session docs: https://www.npmjs.com/package/cookie-session
-  .use(require('cookie-session') ({
+  .use(require('cookie-session')({
     name: 'session',
-    keys: [process.env.SESSION_SECRET || 'an insecure secret key'],
+    keys: [process.env.SESSION_SECRET || 'an insecure secret key']
   }))
 
   // Body parsing middleware
@@ -50,30 +48,18 @@ module.exports = app
 
   // Serve static files from ../public
   .use(express.static(resolve(__dirname, '..', 'public')))
+  .use(express.static(resolve(__dirname, '..', 'node_modules')))
 
   // Serve our api - ./api also requires in ../db, which syncs with our database
   .use('/api', require('./api'))
 
-  // any requests with an extension (.js, .css, etc.) turn into 404
-  .use((req, res, next) => {
-    if (path.extname(req.path).length) {
-      const err = new Error('Not found')
-      err.status = 404
-      next(err)
-    } else {
-      next()
-    }
-  })
-
   // Send index.html for anything else.
   .get('/*', (_, res) => res.sendFile(resolve(__dirname, '..', 'public', 'index.html')))
 
-  // Error middleware interceptor, delegates to same handler Express uses.
-  // https://github.com/expressjs/express/blob/master/lib/application.js#L162
-  // https://github.com/pillarjs/finalhandler/blob/master/index.js#L172
   .use((err, req, res, next) => {
-    console.error(prettyError.render(err))
-    finalHandler(req, res)(err)
+    console.log(prettyError.render(err))
+    res.status(500).send(err)
+    next()
   })
 
 if (module === require.main) {
