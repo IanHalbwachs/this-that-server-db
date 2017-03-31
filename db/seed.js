@@ -12,6 +12,13 @@ const seedUsers = () => db.model('user').create(
   {name: 'Stranger', phoneNumber: '1234567894', password: '1234'}))
   .then(() => db.model('user').findAll())
 
+  const seedFriends = () => db.model('friendship').bulkCreate([
+    {userId: 1, friendId: 2},
+    {userId: 1, friendId: 3},
+    {userId: 1, friendId: 4}
+  ])
+
+
 const seedQuestions = () => db.model('question').bulkCreate([
   {title: 'Jess and Jacquin, what do you think?', leftText: 'Nikes', rightText: 'Reeboks', expires: '2017-04-07 11:00:00-04', public: false, owner_id: 4},
   {title: 'Random internet people, please advise:', leftText: 'Red tie', rightText: 'Blue tie', expires: '2017-04-07 11:00:00-04', rightVotes: 1, public: true, owner_id: 5},
@@ -32,6 +39,8 @@ db.didSync
   .then(() => db.sync({force: true}))
   .then(seedUsers)
   .then(users => console.log(`Seeded ${users.length} users OK`))
+  .then(seedFriends)
+  .then(friends => console.log(`Seeded ${friendship.length} friendships OK`))
   .then(seedQuestions)
   .then(questions => console.log(`Seeded ${questions.length} questions OK`))
   .then(seedAnswers)
