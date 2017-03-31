@@ -51,8 +51,8 @@ const seedAnswers = () => db.model('answer').bulkCreate([
   {respondent_id: 2, question_id: 4},
   {respondent_id: 3, question_id: 4},
   {respondent_id: 1, question_id: 5},
-  {respondent_id: 1, question_id: 5},
-  {respondent_id: 1, question_id: 5},
+  {respondent_id: 2, question_id: 5},
+  {respondent_id: 3, question_id: 5},
   {vote: 'right', respondent_id: 1, question_id: 6},
   {vote: 'left', respondent_id: 2, question_id: 1},
 ])
