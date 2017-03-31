@@ -40,7 +40,7 @@ db.didSync
   .then(seedUsers)
   .then(users => console.log(`Seeded ${users.length} users OK`))
   .then(seedFriends)
-  .then(friends => console.log(`Seeded ${friendship.length} friendships OK`))
+  .then(friends => console.log(`Seeded ${friends.length} friendships OK`))
   .then(seedQuestions)
   .then(questions => console.log(`Seeded ${questions.length} questions OK`))
   .then(seedAnswers)
