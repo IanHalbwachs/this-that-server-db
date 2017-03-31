@@ -13,9 +13,9 @@ const seedUsers = () => db.model('user').create(
   .then(() => db.model('user').findAll())
 
   const seedFriends = () => db.model('friendship').bulkCreate([
-    {userId: 1, friendId: 2},
-    {userId: 1, friendId: 3},
-    {userId: 1, friendId: 4}
+    {user_Id: 1, friend_Id: 2},
+    {user_Id: 1, friend_Id: 3},
+    {user_Id: 1, friend_Id: 4}
   ])
 
 
