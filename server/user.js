@@ -78,7 +78,7 @@ module.exports = require('express').Router()
     })
   })
   .then((arrOfSingleAnswer) => {
-    res.json(arrOfSingleAnswer[0])
+    res.json(arrOfSingleAnswer)
   })
   .catch(next)
 })
