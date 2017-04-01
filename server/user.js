@@ -65,11 +65,7 @@ module.exports = require('express').Router()
 .get('/:userId/random', (req, res, next) => {
   Answer.findAll({where: {respondent_id: req.params.userId}})
   .then((arrOfUserAnswers) => {
-    const arrAnsweredQIds = arrOfUserAnswers.map(answer => {
-      let question = answer.question
-      question.dataValues.myVote = answer.dataValues.vote
-      return question
-    })
+    const arrAnsweredQIds = arrOfUserAnswers.map((answer) => (answer.question_id))
     return Question.findAll({
       where: {
         public: true,
