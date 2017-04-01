@@ -62,10 +62,14 @@ const Question = db.define('question', {
       return Promise.reduce(
         this.getAnswers(),
         (acc, answer) => {
+          console.log('answer---', answer)
           if (!answer.vote) {
             return (
               answer.getRespondent()
-              .then(respondent => respondent.id)
+              .then(respondent => {
+                console.log('respondent---', respondent)
+                return respondent.id
+              })
               .then(id => {
                 acc.push(id)
                 return acc
