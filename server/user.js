@@ -73,6 +73,7 @@ module.exports = require('express').Router()
         open: true,
         id: {$notIn: arrAnsweredQIds}
       },
+      include: [{model: db.model('user'), as: 'owner'}],
       order: [[Sequelize.fn('RANDOM')]],
       limit: 1
     })
