@@ -49,6 +49,7 @@ const seedAnswers = () => db.model('answer').bulkCreate([
   {respondent_id: 1, question_id: 5},
   {respondent_id: 2, question_id: 5},
   {respondent_id: 3, question_id: 5}
+
 ])
 
 db.didSync
